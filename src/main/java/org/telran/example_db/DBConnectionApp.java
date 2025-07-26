@@ -12,7 +12,8 @@ public class DBConnectionApp {
         String password = "Manfred2013!";
 
         Connection connection = null;
-        String connectionString = "jdbc:mysql://" + host + ":" + port + "/" + dbName;
+        String connectionString = "jdbc:mysql://" + host + ":" + port + "/" + dbName + "?serverTimezone=UTC";
+
 
         try {
 

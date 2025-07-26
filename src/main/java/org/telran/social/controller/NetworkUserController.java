@@ -2,10 +2,12 @@ package org.telran.social.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.telran.social.dto.NetworkUserResponsDTO;
 import org.telran.social.model.NetworkUser;
 import org.telran.social.service.NetworkUserService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/users")
@@ -15,8 +17,14 @@ public class NetworkUserController {
     private NetworkUserService userService;
 
     @GetMapping
-    public List<NetworkUser> getAll() {
-        return userService.getAll();
+    public List<NetworkUserResponsDTO> getAll() {
+
+        return userService.getAll().stream().map(user -> NetworkUserResponsDTO.builder()
+                .name(user.getName())
+                .id(user.getId())
+                .surname(user.getSurname())
+                .build())
+                .collect(Collectors.toList());
     }
 
     @GetMapping("{id}")
@@ -40,3 +48,4 @@ public class NetworkUserController {
 
     }
 }
+
